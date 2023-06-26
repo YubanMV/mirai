@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<launch>
+
+  <param name="robot_description" command="$(find xacro)/xacro '$(find robot_description)/description/robot.xacro'"/>
+ 
+  <arg name="x" default="3.0"/>
+  <arg name="y" default="3.0"/>
+  <arg name="z" default="0.5"/> 
+
+  <node name="robot_spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
+        args="-urdf -param robot_description -model mybot -x $(arg x) -y $(arg y) -z $(arg z)"/>
+
+  <!-- send fake joint values -->
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+    <param name="use_gui" value="True"/>
+  </node>
+
+  <!-- Combine joint values -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="true" output="screen" />
+
+  <!-- Show in Rviz   -->
+  
+  <node name="rviz" pkg="rviz" type="rviz" />
+  
+
+
+</launch>

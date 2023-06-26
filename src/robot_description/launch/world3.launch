@@ -1,0 +1,19 @@
+<launch>
+  <!-- Especifica el archivo del mundo -->
+  <arg name="world_file" default="$(find robot_description)/worlds/world_obs.world" />
+
+  <!-- Lanza Gazebo con el archivo del mundo -->
+  <node name="gazebo" pkg="gazebo_ros" type="gazebo" args="$(arg world_file)" output="screen" />
+
+  <include file="$(find robot_description)/launch/gazebo.launch" />
+
+<!--
+
+  <rosparam command="load" file="$(find robot_description)/config/mapper_params_online_async.yaml" />
+
+  <node name="hector_mapping" pkg="hector_mapping" type="hector_mapping" output="screen">
+    < Ajustes específicos de hector_mapping >
+  </node>
+-->
+</launch>
+
